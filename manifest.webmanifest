@@ -1,0 +1,16 @@
+{
+  "id": "./",
+  "name": "PARIS Thrombotic Risk Score Calculator",
+  "short_name": "PARIS Score",
+  "description": "Offline-capable PARIS thrombotic risk score calculator. Clinical reference tool; requires clinician review.",
+  "lang": "en",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#f4f7f9",
+  "theme_color": "#123b5d",
+  "icons": [
+    { "src": "icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable" }
+  ]
+}

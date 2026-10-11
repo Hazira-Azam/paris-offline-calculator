@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#123b5d">
+  <meta name="description" content="Offline-capable PARIS thrombotic risk score calculator. Clinical reference tool; requires clinician review.">
+  <title>PARIS Thrombosis Risk Score Calculator</title>
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="./" aria-label="PARIS calculator home">
+      <span class="brand-mark" aria-hidden="true">P</span>
+      <span><strong>PARIS</strong><small>Clinical score calculator</small></span>
+    </a>
+    <span id="connectionStatus" class="status" role="status"><span class="status-dot"></span> Checking connection</span>
+  </header>
+
+  <main class="container">
+    <nav class="breadcrumbs" aria-label="Breadcrumb">Clinical tools <span>/</span> Thrombotic risk</nav>
+    <section class="intro">
+      <p class="eyebrow">CORONARY ARTERY DISEASE</p>
+      <h1>PARIS Thrombotic Risk Score</h1>
+      <p class="lead">Use the same six input variables and displayed point values as the Appcardio PARIS Thrombosis Risk Score Calculator.</p>
+      <div class="offline-note"><span aria-hidden="true">✓</span><span><strong>Designed for offline use</strong><br>After this app has been opened online once, its files can be cached for subsequent use without internet.</span></div>
+    </section>
+
+    <section class="calculator-card" aria-labelledby="formTitle">
+      <div class="card-heading">
+        <div><h2 id="formTitle">Patient risk factors</h2><p>Select the known clinical factors below.</p></div>
+        <span class="field-count">6 variables</span>
+      </div>
+      <form id="scoreForm">
+        <div class="field-grid">
+          <div class="field">
+            <label for="diabetes">Diabetes Mellitus</label>
+            <select id="diabetes" name="diabetes" required>
+              <option value="" selected disabled>Select status</option>
+              <option value="0">No</option>
+              <option value="1">Yes</option>
+            </select>
+            <small class="hint">1 point if yes</small>
+          </div>
+          <div class="field">
+            <label for="acs">Acute Coronary Syndrome (ACS) as indication for PCI</label>
+            <select id="acs" name="acs" required>
+              <option value="" selected disabled>Select status</option>
+              <option value="0">No</option>
+              <option value="1">Yes</option>
+            </select>
+            <small class="hint">1 point if yes</small>
+          </div>
+          <div class="field">
+            <label for="smoking">Current smoking</label>
+            <select id="smoking" name="smoking" required>
+              <option value="" selected disabled>Select status</option>
+              <option value="0">No</option>
+              <option value="1">Yes</option>
+            </select>
+            <small class="hint">1 point if yes</small>
+          </div>
+          <div class="field">
+            <label for="smallStent">Stent Diameter &lt; 3 mm</label>
+            <select id="smallStent" name="smallStent" required>
+              <option value="" selected disabled>Select status</option>
+              <option value="0">No</option>
+              <option value="1">Yes</option>
+            </select>
+            <small class="hint">1 point if yes</small>
+          </div>
+          <div class="field">
+            <label for="priorPci">Prior PCI</label>
+            <select id="priorPci" name="priorPci" required>
+              <option value="" selected disabled>Select status</option>
+              <option value="0">No</option>
+              <option value="1">Yes</option>
+            </select>
+            <small class="hint">1 point if yes</small>
+          </div>
+          <div class="field">
+            <label for="multivessel">Multivessel PCI</label>
+            <select id="multivessel" name="multivessel" required>
+              <option value="" selected disabled>Select status</option>
+              <option value="0">No</option>
+              <option value="2">Yes</option>
+            </select>
+            <small class="hint">2 points if yes</small>
+          </div>
+        </div>
+        <div class="form-actions">
+          <button class="button button-primary" type="submit">Calculate score <span aria-hidden="true">→</span></button>
+          <button class="button button-secondary" type="reset">Clear selections</button>
+        </div>
+      </form>
+
+      <section id="result" class="result" aria-live="polite" hidden>
+        <div class="result-top"><div><p class="eyebrow">CALCULATED RESULT</p><h2>Your PARIS score</h2></div><span id="riskBadge" class="risk-badge"></span></div>
+        <div class="score-line"><strong id="scoreValue">—</strong><span>out of 7 points</span></div>
+        <div class="score-track" aria-label="Score from zero to twelve"><div id="scoreFill" class="score-fill"></div></div>
+        <p id="riskDescription" class="risk-description"></p>
+        <h3>Point breakdown</h3>
+        <ul id="breakdown" class="breakdown"></ul>
+        <p class="clinical-warning"><strong>Clinical caution:</strong> This score is an adjunct to clinical assessment. It does not independently determine antiplatelet choice or duration. Consider bleeding risk, current guidelines, patient factors and clinician judgement.</p>
+      </section>
+    </section>
+
+    <section class="info-card">
+      <h2>About this calculator</h2>
+      <p>This offline implementation reproduces the six variables and displayed point values described on the <a href="https://appcardio.com/paris-thrombosis-risk-score-calculator/" target="_blank" rel="noopener noreferrer">Appcardio PARIS Thrombosis Risk Score Calculator</a> page: Diabetes Mellitus (+1), Current Smoking (+1), ACS as indication for PCI (+1), Prior PCI (+1), Stent Diameter &lt; 3 mm (+1), and Multivessel PCI (+2). Maximum displayed score: 7.</p>
+      <p><strong>Risk bands shown by the source page:</strong> 0–2 Low Risk; 3–4 Intermediate Risk; greater than 5 High Risk. The source page does not specify a category for exactly 5 points, so this implementation flags that score as unspecified rather than inventing a category.</p>
+      <div class="discrepancy"><strong>Clinical caution</strong><p>This reproduces the parameters and point descriptions shown on the referenced website; it does not independently establish that these inputs and thresholds match the original validated PARIS model. Verify with a qualified clinician and the primary literature before any clinical use. This is an independent project, not affiliated with or endorsed by Appcardio.</p></div>
+      <h3>Reference</h3>
+      <ol class="references">
+        <li><a href="https://appcardio.com/paris-thrombosis-risk-score-calculator/" target="_blank" rel="noopener noreferrer">Appcardio: PARIS Thrombosis Risk Score Calculator</a> (accessed for the displayed variables, point values, and risk-band wording).</li>
+        <li>For clinical implementation, independently verify the intended model against the original PARIS publications and current clinical guidance.</li>
+      </ol>
+    </section>
+
+    <footer class="footer"><p><strong>Educational prototype · Not for standalone clinical decision-making</strong></p><p>No patient information is saved by this calculator. Selections remain only in the current page session and are cleared when you reset or reload.</p><p class="build-version">Offline Appcardio-parameter replica · Version 1.1.1</p></footer>
+  </main>
+  <script src="app.js" defer></script>
+</body>
+</html>
